@@ -1,0 +1,13 @@
+body{
+    background-color: darkseagreen; /* Esto será el color de fondo si la imagen no se carga */
+    background-image: url('https://png.pngtree.com/background/20240412/original/pngtree-3d-rendered-movie-theatre-with-no-audience-picture-image_8464340.jpg'); /* Ruta de la imagen */
+    color: white;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+h1{
+    text-align: center;
+    color: lavender;
+}

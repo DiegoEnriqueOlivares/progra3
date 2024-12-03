@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tipo de Sala</title>
+</head>
+<body>
+<h1>Tipo de Sala</h1>
+<hr>
+<form method="POST" action="./TipoSala">
+    <label>
+        Nombre
+        <input type="text" id="txtNombre" name="nombre" required placeholder="Ingrese un nombre">
+    </label>
+    <label>
+        Activo
+        <input type="checkbox" id="chkActivo" name="activo">
+    </label>
+    <label>
+        Expresion Regular
+        <input type="text" id="txtExpresionRegular" name="expresionRegular">
+    </label>
+    <label>
+        Comentarios
+        <textarea id="txtComentarios" name="comentarios" cols="70" rows="3"></textarea>
+    </label>
+
+    <input type="submit" value="Crear">
+</form>
+</body>
+</html>

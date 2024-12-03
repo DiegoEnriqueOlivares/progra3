@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Windows
+  Date: 10/22/2024
+  Time: 7:26 a. m.
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="jakarta.faces.core">
+
+<h:head>
+    <title>
+        <f:insert name="titulo">
+            Titulo de la pagina
+        </f:insert>
+    </title>
+    <h:outputStylesheet library="estilos" name="basico_template.css"/>
+
+</h:head>
+
+<c:view locale="#{sesionUsuario.idiomaSeleccionado}">
+<h:body>
+    <div class="ui-g">
+        <p:growl/>
+        <div class="ui-g-12 ui-md-2">
+            <h:form id="frmMenuPrincipal">
+                <p:menu model="#{frmMenu.model}" appendTo="body" toggleable="true"/>
+            </h:form>
+        </div>
+        <div class="ui-g-12 ui-md-10 ui-g-nopad">
+            <div class="ui-g-12" id="sesion">
+                <p:toolbar>
+                    <p:toolbarGroup align="right">
+                        <h:form id="frmIdioma">
+                        <p:selectOneMenu value="#{sesionUsuario.idiomaSeleccionado}"
+                                         valueChangeListener="#{sesionUsuario.cambiarIdioma}"
+                        >
+                            <c:selectItem  noSelectionOption="true" itemValue="#{null}" itemLabel="Idioma"/>
+                            <c:selectItems value="#{sesionUsuario.idiomas.entrySet()}" var="idioma"
+                                          itemLabel="#{idioma.key}"
+                                          itemValue="#{idioma.key}"/>
+                            <c:ajax execute="@form" render="@all" />
+                        </p:selectOneMenu>
+                        <p:commandButton type="button" icon="pi pi-user" styleClass="mr-2"/>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </div>
+            <div class="ui-g-12">
+                <h1>
+                    <f:insert name="titulo">
+                        Titulo de la pagina
+                    </f:insert>
+                </h1>
+            </div>
+            <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-g">
+                    <f:insert name="cuerpo">
+                        Cuerpo de la pagina
+                    </f:insert>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12" style="text-align: center;">
+            <h:outputText value="#{frmname['frmname.copyright']}" />
+        </div>
+    </div>
+    <f:insert name="extras">
+
+    </f:insert>
+</h:body>
+</c:view>
+</html>

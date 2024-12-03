@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Windows
+  Date: 10/8/2024
+  Time: 5:59 p. m.
+-->
+<f:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:h="http://xmlns.jcp.org/jsf/html"
+               xmlns:f="jakarta.faces.facelets"
+               xmlns:p="http://primefaces.org/ui"
+               xmlns:crud="jakarta.faces.composite/crud"
+               template="WEB-INF/templates/principal.xhtml"
+>
+    <f:define name="titulo">
+        #{frmname['frmname.asiento']}
+    </f:define>
+
+    <f:define name="cuerpo">
+
+        <h:panelGrid>
+            <h:panelGroup id="pnlTabla">
+                <h:form id="frmTable">
+                    <h:panelGrid>
+                        <p:dataTable value="#{frmTipoAsientoF.modelo}"
+                                     var="r"
+                                     rows="10"
+                                     lazy="true"
+                                     selectionMode="single"
+                                     selection="#{frmTipoAsientoF.registro}"
+                                     paginator="true"
+                                     rendered="#{frmTipoAsientoF.estado=='NINGUNO'}"
+                        >
+                            <p:ajax event="rowSelect" update=":pnlDetalle :pnlTabla" process="@this"/>
+                            <p:column headerText="ID">
+                                <h:outputText value="#{r.idTipoAsiento}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{r.nombre}"/>
+                            </p:column>
+
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{r.activo?'ACTIVO':'INACTIVO'}"/>
+                            </p:column>
+                            <p:column headerText="Expresion Regular">
+                                <h:outputText value="#{r.expresionRegular}"/>
+                            </p:column>
+
+                            <p:column headerText="Comentarios">
+                                <h:outputText value="#{r.comentarios}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <h:panelGrid>
+                            <crud:botonesTop frm="#{frmTipoAsientoF}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup id="pnlDetalle">
+                <h:panelGrid>
+                    <h:form id="frmDetalle" rendered="#{frmTipoAsientoF.estado!='NINGUNO'}">
+                        <h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="ID" for="txtIdTipoAsiento"/>
+                                <p:inputText id="txtIdTipoAsiento"
+                                             value="#{frmTipoAsientoF.registro.idTipoAsiento}" readonly="true" disabled="true"/>
+                                <p:outputLabel value="Nombre" for="txtNombre"/>
+                                <p:inputText size="70" id="txtNombre" value="#{frmTipoAsientoF.registro.nombre}"/>
+                                <p:outputLabel for="chkActivo" value="Activo"/>
+                                <p:selectBooleanCheckbox id="chkActivo" value="#{frmTipoAsientoF.registro.activo}"/>
+                                <p:outputLabel for="txtExpresionRegular" value="Expresion Regular"/>
+                                <p:inputTextarea id="txtExpresionRegular"
+                                                 value="#{frmTipoAsientoF.registro.expresionRegular}" cols="70" rows="1"/>
+                                <p:outputLabel for="txtComentarios" value="Comentarios"/>
+                                <p:inputTextarea id="txtComentarios"
+                                                 value="#{frmTipoAsientoF.registro.comentarios}" cols="70" rows="3"/>
+                            </h:panelGrid>
+                            <h:messages/>
+                            <h:panelGrid>
+                                <crud:botonesBottom frm="#{frmTipoAsientoF}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:form>
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:panelGrid>
+    </f:define>
+</f:composition>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Windows
+  Date: 10/6/2024
+  Time: 5:23 p. m.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Tipo Reserva</title>
+    <style type="text/css">
+        body{
+            background-color: black;
+        }
+        h1 {
+            color:#c00;
+            font-family:sans-serif;
+            font-size:2em;
+            margin-bottom:0;
+        }
+
+        table {
+            font-family:sans-serif;
+            th, td {
+                padding:.25em .5em;
+                text-align:left;
+            nth-child(2){
+                text-align:right;
+            }
+            }
+            td {
+                background-color:#eee;
+            }
+            th {
+                background-color: #400657;
+                color:#fff;
+            }
+        }
+
+        .zigzag {
+            border-collapse:separate;
+            border-spacing:.25em 1em;
+            tbody tr:nth-child(odd) {
+                transform:rotate(2deg);
+            }
+            thead tr,
+            tbody tr:nth-child(even) {
+                transform:rotate(-2deg);
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h1>Tipo Reserva</h1>
+    <h:form id="frmTabla">
+        <h:dataTable value="#{frmTipoReserva.registros}" var="r">
+
+            <h:column>
+                <f:facet name="header">
+                    ID
+                </f:facet>
+                <h:outputText value="#{r.idTipoReserva}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    NOMBRE
+                </f:facet>
+                <h:outputText value="#{r.nombre}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    ESTADO
+                </f:facet>
+                <h:outputText value="#{r.activo?'ACTIVO':'INACTIVO'}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    COMENTARIOS
+                </f:facet>
+                <h:outputText value="#{r.comentarios}"/>
+            </h:column>
+            <h:column>
+                <h:commandButton value="Seleccionar" action="#{frmTipoReserva.btnSeleccionarRegistroHandler(r.idTipoReserva)}">
+                    <f:ajax render=":pnlDetalle" execute="@form"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+        <h:panelGroup>
+            <h:commandButton value="Cancelar" actionListener="#{frmTipoReserva.btnCancelarRegistroHandler()}"/>
+            <h:commandButton value="Nuevo" actionListener="#{frmTipoReserva.btnNuevoRegistroHandler()}"/>
+        </h:panelGroup>
+    </h:form>
+    <h:panelGroup id="pnlDetalle">
+        <h:form id="frmDetalle" rendered="#{not empty frmTipoReserva.registro}">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="ID" for="txtId"/>
+                <h:inputText id="txtId" value="#{frmTipoReserva.registro.idTipoReserva}" readonly="true" disabled="true"/>
+                <h:outputLabel value="Nombre" for="txtNombre"/>
+                <h:inputText size="70" id="txtNombre" value="#{frmTipoReserva.registro.nombre}"/>
+                <h:outputLabel for="chkActivo" value="Activo"/>
+                <h:selectBooleanCheckbox  id="chkActivo" value="#{frmTipoReserva.registro.activo}"/>
+                <h:outputLabel for="txtComentarios" value="Comentarios"/>
+                <h:inputTextarea id="txtComentarios" value="#{frmTipoReserva.registro.comentarios}" cols="70" rows="3"/>
+            </h:panelGrid>
+            <h:panelGrid>
+                <h:messages showSummary="true" showDetail="true"/>
+                <h:panelGrid>
+                    <h:commandButton value="Guardar" actionListener="#{frmTipoReserva.btnGuardarRegistroHandler}" rendered="#{frmTipoReserva.estado=='CREAR'}"/>
+                    <h:commandButton value="Modificar" actionListener="#{frmTipoReserva.btnModificarRegistroHandler}" rendered="#{frmTipoReserva.estado=='MODIFICAR'}"/>
+                    <h:commandButton value="Eliminar" actionListener="#{frmTipoReserva.btnEliminarRegistroHandler}" rendered="#{frmTipoReserva.estado=='MODIFICAR'}"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:form>
+    </h:panelGroup>
+
+
+</h:body>
+
+</html>

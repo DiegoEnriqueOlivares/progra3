@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: godofredo
+  Date: 11/11/24
+  Time: 14:30
+-->
+
+
+<f:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:h="jakarta.faces.html"
+               xmlns:p="http://primefaces.org/ui"
+               xmlns:f="jakarta.faces.facelets"
+               xmlns:cc="jakarta.faces.composite/crud"
+               template="WEB-INF/templates/principal.xhtml"
+>
+    <f:define name="titulo">
+        #{frmSucursal.tituloDePagina}
+    </f:define>
+    <f:define name="cuerpo">
+        <h:panelGrid>
+            <h:panelGroup id="pnlTabla">
+                <h:form id="frmTable">
+                    <h:panelGrid>
+                        <p:dataTable
+                                value="#{frmSucursal.modelo}"
+                                var="r"
+                                rows="10"
+                                lazy="true"
+                                selectionMode="single"
+                                selection="#{frmSucursal.registro}"
+                                paginator="true"
+                                rendered="#{frmSucursal.estado=='NINGUNO'}"
+                        >
+                            <p:ajax event="rowSelect" update=":pnlDetalle :pnlTabla" process="@this"/>
+                            <p:column headerText="ID">
+                                <h:outputText value="#{r.idSucursal}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{r.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Longitud">
+                                <h:outputText value="#{r.longitud}"/>
+                            </p:column>
+                            <p:column headerText="Latitud">
+                                <h:outputText value="#{r.latitud}"/>
+                            </p:column>
+                            <p:column headerText="Comentarios">
+                                <h:outputText value="#{r.comentarios}"/>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{r.activo?'ACTIVO':'INACTIVO'}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <h:panelGrid>
+                            <cc:botonesTop frm="#{frmSucursal}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup id="pnlDetalle">
+                <h:panelGrid>
+                    <h:form id="frmDetalle" rendered="#{frmSucursal.estado!='NINGUNO'}">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="ID" for="txtIdSucursal"/>
+                            <p:inputText id="txtIdSucursal"
+
+                                         value="#{frmSucursal.registro.idSucursal}" readonly="true" disabled="true"/>
+
+                            <p:outputLabel value="Nombre" for="txtNombre"/>
+                            <p:inputText size="70" id="txtNombre"
+                                         value="#{frmSucursal.registro.nombre}"/>
+
+                            <p:outputLabel value="Longitud" for="txtLongitud"/>
+                            <p:inputText size="70" id="txtLongitud"
+                                         value="#{frmSucursal.registro.longitud}"/>
+                            <p:outputLabel value="Latitud" for="txtLatitud"/>
+                            <p:inputText size="70" id="txtLatitud"
+                                         value="#{frmSucursal.registro.latitud}"/>
+                            <p:outputLabel value="Comentarios" for="txtComentarios"/>
+                            <p:inputText size="70" id="txtComentarios"
+                                         value="#{frmSucursal.registro.comentarios}"/>
+
+                            <p:outputLabel for="chkActivo" value="Activo"/>
+                            <p:selectBooleanCheckbox id="chkActivo"
+                                                     value="#{frmSucursal.registro.activo}"/>
+
+                        </h:panelGrid>
+                        <cc:botonesBottom frm="#{frmSucursal}"/>
+                    </h:form>
+                    <p:growl id="growl" showSummary="true" showDetail="true" life="3000"/>
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:panelGrid>
+    </f:define>
+
+
+</f:composition>
