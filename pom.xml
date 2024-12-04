@@ -69,30 +69,38 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Dependencias Rest-->
-        <!--dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk</artifactId>
-            <version>3.1.5</version>
-        </dependency-->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-pdf</artifactId>
+            <version>7.0.1</version>
+        </dependency>
 
         <!--dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>3.0.1</version>
         </dependency-->
-
-        <!--dependency>
+        <!--Dependencias para rest -->
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>3.1.5</version>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>3.1.5</version>
-        </dependency-->
-
-        <!--dependency>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>3.1.5</version>
-        </dependency-->
+        </dependency>
 
         <!--dependency>
             <groupId>com.fasterxml.jackson.module</groupId>

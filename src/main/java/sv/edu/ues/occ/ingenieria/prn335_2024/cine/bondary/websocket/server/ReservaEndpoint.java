@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ServerEndpoint("/notificadortiposala")
+@ServerEndpoint("/notificadorReserva")
 @ApplicationScoped
 @Named
 public class ReservaEndpoint implements Serializable {
