@@ -165,7 +165,7 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.10</version>
                 <configuration>
-                    <installDirectory>/home/marcelitoo/Programas/openliberty/wlp</installDirectory>
+                    <installDirectory></installDirectory>
                     <serverName>prn335_2024</serverName>
                 </configuration>
             </plugin>
