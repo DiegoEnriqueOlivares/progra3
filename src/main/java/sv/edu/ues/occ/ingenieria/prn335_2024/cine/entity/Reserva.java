@@ -1,5 +1,7 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
@@ -13,10 +15,12 @@ public class Reserva implements Serializable {
     @Id
     @Column(name = "id_reserva", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long idReserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_programacion")
+    @JsonIgnore
     private Programacion idProgramacion;
 
     @ManyToOne(fetch = FetchType.LAZY)

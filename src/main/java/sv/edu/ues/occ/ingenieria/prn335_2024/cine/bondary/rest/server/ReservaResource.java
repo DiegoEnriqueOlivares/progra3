@@ -8,7 +8,9 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.ReservaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,20 +20,25 @@ public class ReservaResource implements Serializable {
     @Inject
     ReservaBean rBean;
 
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response findRange(
             @QueryParam("first") @DefaultValue("0")
             int firstResult,
-            @QueryParam("max") @DefaultValue("50")
-            @Max(50L)
+            @QueryParam("max") @DefaultValue("100")
+            @Max(100)
             int maxResult) {
         try {
-            if (firstResult >= 0L && maxResult <= 50L) {
+            if (firstResult >= 0 && maxResult <= 100) {
                 List<Reserva> encontrados = rBean.findRange(firstResult, maxResult);
                 Long total = rBean.count();
-                Response.ResponseBuilder builder = Response.ok(encontrados)
-                        .header("Total-Records: ", total)
+
+                Map<String, Object> datos = new HashMap<>();
+                datos.put("datos", encontrados);
+                datos.put("total", total);
+                Response.ResponseBuilder builder = Response.ok(datos)
+                        .header("Total", total)
                         .type(MediaType.APPLICATION_JSON);
                 return builder.build();
             } else {
