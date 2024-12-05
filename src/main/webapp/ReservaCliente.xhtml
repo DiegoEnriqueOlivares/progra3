@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Diego
+  Date: 11/10/2024
+  Time: 7:06 p. m.
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:crud="jakarta.faces.composite/crud" xmlns:jsp="http://java.sun.com/jsf/core"
+                template="WEB-INF/templates/cliente.xhtml">
+    <ui:define name="titulo">
+        #{frmmenu['frmmenu.reserva']}
+    </ui:define>
+
+    <ui:define name="cuerpo">
+
+        <h:panelGrid align="center">
+            <h:panelGroup id="pnlDetalle">
+                <p:tabView id="tabView" activeIndex="#{frmReservaCliente.activeIndex}">
+                    <p:tab title="Fecha" closable="false">
+                        <h:panelGrid>
+                            <h3>Seleccione una fecha para su reservación</h3>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Tipo de Reserva" for="lstTipoSala"/>
+                                <p:selectOneMenu id="lstTipoSala" value="#{frmReservaCliente.idTipoReservaSeleccionado}">
+                                    <f:selectItems value="#{frmReservaCliente.tipoReservaList}" var="tr" itemLabel="#{tr.nombre}" itemValue="#{tr.idTipoReserva}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Seleccione un día" for="txtFecha"/>
+                                <p:calendar id="txtFecha" value="#{frmReservaCliente.registro.fechaReserva}" pattern="dd/MM/yyyy" navigator="true" required="true"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Siguiente" actionListener="#{frmReservaCliente.siguientePaso}" update="tabView"/>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Funcion" closable="false">
+                        <h:panelGrid>
+                            <h3>Seleccione una Película</h3>
+                            <h:panelGroup id="pnlDetalle2">
+                                <h:form id="frmDetalle2">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Película" for="@next"/>
+                                        <p:autoComplete id="txtPelicula"
+                                                        completeMethod="#{frmReservaCliente.completeProgramacion}"
+                                                        size="70"
+                                                        var="programacion"
+                                                        itemLabel="#{frmReservaCliente.getProgramacionLabel(programacion)}">
+                                            <!-- Evitamos cambiar de tab al seleccionar -->
+                                            <p:ajax event="itemSelect" listener="#{frmReservaCliente.onProgramacionSelect}" update=":tabDetalle:pnlDetalle2 :tabDetalle:pnlDetalle3" execute="@this"/>
+                                        </p:autoComplete>
+                                    </h:panelGrid>
+                                </h:form>
+                            </h:panelGroup>
+                            <h:panelGroup id="pnlDetalle3" >
+                                <h:panelGrid rendered="#{not empty frmReservaCliente.programacionSeleccionada}">
+                                    <h:form>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="Detalles de la película seleccionada:" />
+                                            <!-- Agrega los detalles que quieres mostrar -->
+                                            <h:outputText value="#{frmReservaCliente.programacionSeleccionada.idPelicula.sinopsis}" />
+                                        </h:panelGrid>
+                                    </h:form>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                            <p:commandButton value="Anterior" actionListener="#{frmReservaCliente.anteriorPaso()}" update="tabView"/>
+                            <p:commandButton value="Siguiente" actionListener="#{frmReservaCliente.siguientePaso}" update="tabView"/>
+                        </h:panelGrid>
+                    </p:tab>
+
+                    <p:tab title="Funcion" closable="false">
+                        <h:panelGrid>
+
+                        </h:panelGrid>
+                        <p:commandButton value="Anterior" actionListener="#{frmReservaCliente.anteriorPaso()}" update="tabView"/>
+                        <p:commandButton value="Siguiente" actionListener="#{frmReservaCliente.siguientePaso}" update="tabView"/>
+                    </p:tab>
+
+                    <p:tab title="Funcion" closable="false">
+                        <h:panelGrid>
+
+                        </h:panelGrid>
+                        <p:commandButton value="Anterior" actionListener="#{frmReservaCliente.anteriorPaso()}" update="tabView"/>
+                    </p:tab>
+
+                </p:tabView>
+            </h:panelGroup>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

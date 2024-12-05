@@ -61,12 +61,14 @@
             <classifier>jakarta</classifier>
         </dependency>
 
+        <!-- Para usar Mockito con JUnit 5 -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.5.0</version>
             <scope>test</scope>
         </dependency>
+
 
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
@@ -79,12 +81,29 @@
             <version>7.0.1</version>
         </dependency>
 
-        <!--dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>3.0.1</version>
-        </dependency-->
-        <!--Dependencias para rest -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
@@ -100,29 +119,6 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>3.1.5</version>
         </dependency>
-
-        <!--dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>2.14.0</version>
-        </dependency-->
-
-        <!--dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.14.0</version>
-        </dependency-->
-        <!--dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.14.0</version>
-        </dependency-->
-        <!--dependency>
-
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.14.0</version>
-        </dependency-->
 
     </dependencies>
     <build>
@@ -165,7 +161,7 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.10</version>
                 <configuration>
-                    <installDirectory></installDirectory>
+                    <installDirectory>/usr/local/openliberty/wlp10_24_0_0_8/wlp</installDirectory>
                     <serverName>prn335_2024</serverName>
                 </configuration>
             </plugin>
